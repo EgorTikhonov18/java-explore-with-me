@@ -24,7 +24,6 @@ public class StatsController {
 
     StatsService statsService;
 
-    @Autowired
     public StatsController(@Qualifier("StatsServiceDb") StatsService statsService) {
         this.statsService = statsService;
     }

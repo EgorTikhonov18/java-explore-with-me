@@ -25,7 +25,6 @@ import java.util.List;
 public class StatsServiceDb implements StatsService {
     final StatsRepository statsRepository;
 
-    @Autowired
     public StatsServiceDb(StatsRepository statsRepository) {
         this.statsRepository = statsRepository;
     }
