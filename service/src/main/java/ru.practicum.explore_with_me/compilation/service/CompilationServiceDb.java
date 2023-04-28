@@ -67,7 +67,7 @@ public class CompilationServiceDb implements CompilationService {
         return modelToOutputDto(savedCompilation, inputCompilationDto);
     }
 
-    @Transactional
+
     @Override
     public void deleteCompilation(Long compId) {
         Compilation compilation = getCompilationModel(compId);
