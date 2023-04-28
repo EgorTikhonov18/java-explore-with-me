@@ -18,6 +18,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PublicCategoryController {
     final CategoryService categoryService;
+
     @Autowired
     public PublicCategoryController(@Qualifier("CategoryServiceDb") CategoryService categoryService) {
         this.categoryService = categoryService;
