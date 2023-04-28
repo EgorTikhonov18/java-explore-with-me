@@ -12,8 +12,4 @@ public class StatsServer {
         SpringApplication.run(StatsServer.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
 }
