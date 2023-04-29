@@ -32,7 +32,7 @@ public class StatsClient extends BaseClient {
                 .ip(ip)
                 .timestamp(timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
-        post("/hit", endpointHitAPIDto);
+        post(endpointHitAPIDto);
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {

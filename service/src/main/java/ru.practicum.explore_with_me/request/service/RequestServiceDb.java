@@ -141,7 +141,7 @@ public class RequestServiceDb implements RequestService {
     }
 
     @Override
-    public List<OutputRequestDto> getEventParticipants(Long userId, Long eventId) {
+    public List<OutputRequestDto> getEventParticipants (Long userId, Long eventId) {
         Event event = getEvent(eventId);
         if (!userId.equals(event.getInitiator().getId())) {
             String message = "Только инициатор события может просматривать заявки";

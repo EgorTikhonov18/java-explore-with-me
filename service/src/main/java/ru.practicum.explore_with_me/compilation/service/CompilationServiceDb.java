@@ -38,7 +38,7 @@ public class CompilationServiceDb implements CompilationService {
         this.eventRepository = eventRepository;
     }
 
-    @Transactional
+
     @Override
     public OutputCompilationDto saveCompilation(InputCompilationDto inputCompilationDto) {
         Compilation compilation = compilationRepository.save(CompilationDtoMapper.inputToModelMapper(inputCompilationDto));
@@ -48,7 +48,7 @@ public class CompilationServiceDb implements CompilationService {
         return modelToOutputDto(compilation, inputCompilationDto);
     }
 
-    @Transactional
+
     @Override
     public OutputCompilationDto updateCompilation(InputCompilationDto inputCompilationDto, Long compId) {
         Compilation compilation = getCompilationModel(compId);

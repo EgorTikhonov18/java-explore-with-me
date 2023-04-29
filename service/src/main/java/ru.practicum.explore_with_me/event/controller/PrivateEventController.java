@@ -45,8 +45,8 @@ public class PrivateEventController {
 
     @PatchMapping(pathForEventId)
     public OutputEventDto updateEvent(@RequestBody InputEventDto inputEventDto,
-                                      @PathVariable(name = "userId") Long userId,
-                                      @PathVariable(name = "eventId") Long eventId) {
+                                        Long userId,
+                                      @PathVariable(name = "eventId") Long eventId) { //@PathVariable(name = "userId")
         log.info("Запрос на изменение события");
         return eventService.updateEvent(inputEventDto, userId, eventId);
     }

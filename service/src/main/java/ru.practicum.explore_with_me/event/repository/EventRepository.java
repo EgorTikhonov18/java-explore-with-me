@@ -1,5 +1,4 @@
 package ru.practicum.explore_with_me.event.repository;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,5 +28,5 @@ public interface EventRepository extends JpaRepository<Event, Long>, EventReposi
     Integer getCountConfirmedRequests(@Param("eventId") Long eventId);
 
     @Query(value = "select e from Event e where e.category = :category")
-    List<Event> findEventsByCategory(@Param("ru.practicum.explore_with_me/category") Category category);
+    List<Event> findEventsByCategory(@Param("category") Category category);
 }
