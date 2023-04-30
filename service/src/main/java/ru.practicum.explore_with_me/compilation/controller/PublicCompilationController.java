@@ -1,6 +1,5 @@
 package ru.practicum.explore_with_me.compilation.controller;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -39,4 +38,3 @@ public class PublicCompilationController {
     }
 
 }
-

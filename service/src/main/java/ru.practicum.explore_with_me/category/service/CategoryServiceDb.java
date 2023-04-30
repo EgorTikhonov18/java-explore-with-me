@@ -1,6 +1,5 @@
 package ru.practicum.explore_with_me.category.service;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +22,12 @@ import java.util.List;
 @Service
 @Qualifier("CategoryServiceDb")
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CategoryServiceDb implements CategoryService {
 
-    final CategoryRepository categoryRepository;
-    final EventRepository eventRepository;
+    CategoryRepository categoryRepository;
+    EventRepository eventRepository;
+
 
     @Autowired
     public CategoryServiceDb(CategoryRepository categoryRepository,

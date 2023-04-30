@@ -13,5 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsers(Pageable pageable);
 
     @Query(value ="select u from User u where u.id IN :ids")
-    List<User> findUsersByIds( @Param("ids") List<Long> ids, Pageable pageable); //@Param("ids")
+    List<User> findUsersByIds(@Param(value = "ids") List<Long> ids, Pageable pageable); //@Param("ids")
 }

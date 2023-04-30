@@ -1,9 +1,9 @@
 package ru.practicum.explore_with_me.user.service;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +22,11 @@ import java.util.List;
 @Service
 @Qualifier("UserServiceDb")
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceDb implements UserService {
-    final UserRepository userRepository;
+    UserRepository userRepository;
 
+    @Autowired
     public UserServiceDb(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

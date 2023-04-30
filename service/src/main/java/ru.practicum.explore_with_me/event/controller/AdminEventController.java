@@ -1,6 +1,5 @@
 package ru.practicum.explore_with_me.event.controller;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -45,4 +44,3 @@ public class AdminEventController {
         return eventService.getEvents(userIds, states, categoryIds, rangeStartString, rangeEndString, from, size);
     }
 }
-

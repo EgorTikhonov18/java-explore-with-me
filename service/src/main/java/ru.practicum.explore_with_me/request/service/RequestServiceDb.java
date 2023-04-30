@@ -1,6 +1,5 @@
 package ru.practicum.explore_with_me.request.service;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +30,12 @@ import java.util.List;
 @Service
 @Qualifier("RequestServiceDb")
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RequestServiceDb implements RequestService {
 
-    final RequestRepository requestRepository;
-    final UserRepository userRepository;
-    final EventRepository eventRepository;
+    RequestRepository requestRepository;
+    UserRepository userRepository;
+    EventRepository eventRepository;
 
 
     @Autowired
@@ -141,7 +140,7 @@ public class RequestServiceDb implements RequestService {
     }
 
     @Override
-    public List<OutputRequestDto> getEventParticipants (Long userId, Long eventId) {
+    public List<OutputRequestDto> getEventParticipants(Long userId, Long eventId) {
         Event event = getEvent(eventId);
         if (!userId.equals(event.getInitiator().getId())) {
             String message = "Только инициатор события может просматривать заявки";

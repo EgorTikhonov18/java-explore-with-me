@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdminUserController {
-
     final UserService userService;
 
     @Autowired

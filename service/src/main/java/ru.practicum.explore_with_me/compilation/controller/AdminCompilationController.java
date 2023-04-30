@@ -21,6 +21,7 @@ import javax.validation.Valid;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdminCompilationController {
     final String pathForCompId = "/{compId}";
+    final String pathVarCompId = "compId";
     final CompilationService compilationService;
 
     @Autowired
@@ -37,14 +38,14 @@ public class AdminCompilationController {
 
     @PatchMapping(pathForCompId)
     public OutputCompilationDto updateCompilation(@RequestBody InputCompilationDto inputCompilationDto,
-                                                  @PathVariable(name = "compId") Long compId) {
+                                                  @PathVariable(name = pathVarCompId) Long compId) {
         log.info(String.format("%s %d", "Запрос на изменение подборки с id =", compId));
         return compilationService.updateCompilation(inputCompilationDto, compId);
     }
 
     @DeleteMapping(pathForCompId)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompilation(@PathVariable(name = "compId") Long compId) {
+    public void deleteCompilation(@PathVariable(name = pathVarCompId) Long compId) {
         log.info(String.format("%s %d", "Запрос на удаление подборки с id =", compId));
         compilationService.deleteCompilation(compId);
     }
