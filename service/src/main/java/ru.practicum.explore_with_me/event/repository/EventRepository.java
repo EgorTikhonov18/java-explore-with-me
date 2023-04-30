@@ -27,6 +27,6 @@ public interface EventRepository extends JpaRepository<Event, Long>, EventReposi
     @Query(value = "select count(id) from requests where event_id = :eventId and status = 'CONFIRMED'", nativeQuery = true)
     Integer getCountConfirmedRequests(@Param("eventId") Long eventId);
 
-    @Query(value = "select e from Event e where e.category = :category")
+   // @Query(value = "select e from Event e where e.category = :category")
     List<Event> findEventsByCategory(@Param("category") Category category);
 }
