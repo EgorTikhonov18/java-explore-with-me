@@ -1,10 +1,10 @@
 package ru.practicum.explore_with_me.comment.service;
 
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -52,8 +52,14 @@ public class CommentServiceDb implements CommentService {
 
     /*private*/
     @Override
+    @CreationTimestamp
     public OutputCommentDto addComment(InputCommentDto inputCommentDto, Long userId, Long eventId) {
         Comment comment = CommentDtoMapper.inputToModelMapper(inputCommentDto);
+        /* if (!comment.getStatus().equals(CommentStatus.CONFIRMED)) {
+            String message = "Добавлять коментарии можно только к опубликованным постам";
+            log.info(message);
+            throw new ForbiddenException(message);
+        }*/
         comment.setAuthor(getUser(userId));
         comment.setEvent(getEvent(eventId));
         comment.setStatus(CommentStatus.PENDING);
@@ -70,6 +76,7 @@ public class CommentServiceDb implements CommentService {
             throw new ForbiddenException(message);
         }
         comment.setText(inputCommentDto.getText());
+        //comment.setStatus(CommentStatus.PENDING);
         return CommentDtoMapper.modelToOutputMapper(commentRepository.save(comment));
     }
 
@@ -94,6 +101,11 @@ public class CommentServiceDb implements CommentService {
     @Override
     public List<OutputCommentDto> getCommentsByEventId(Long eventId, Integer from, Integer size) {
         Event event = getEvent(eventId);
+        /* if (!event.getState().equals(EventState.PUBLISHED)) {
+            String message = "Можно получать коментарии только к опубликованным событиям";
+            log.info(message);
+            throw new ForbiddenException(message);
+        }*/
         return fromModelListToOutDtoList(commentRepository.findCommentsByEvent(event, PageRequest.of(from / size, size)));
     }
 

@@ -39,7 +39,8 @@ public class Comment {
     @Column
     @Enumerated(EnumType.STRING)
     CommentStatus status;
-
+    @Column(name = "lastEditDate")
+    LocalDateTime lastEditDate;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

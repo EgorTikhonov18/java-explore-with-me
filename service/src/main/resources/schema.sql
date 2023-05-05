@@ -84,5 +84,6 @@ CREATE TABLE IF NOT EXISTS comments
     text                        TEXT,
     status                      VARCHAR(30),
     created_on                  TIMESTAMP WITHOUT TIME ZONE,
-    published_on                TIMESTAMP WITHOUT TIME ZONE
+    published_on                TIMESTAMP WITHOUT TIME ZONE,
+    lastEditDate                TIMESTAMP WITHOUT TIME ZONE
     )

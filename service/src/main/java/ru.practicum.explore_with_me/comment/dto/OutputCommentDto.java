@@ -26,4 +26,6 @@ public class OutputCommentDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' 'HH:mm:ss")
     LocalDateTime publishedOn;
     CommentStatus status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' 'HH:mm:ss")
+    LocalDateTime lastEditDate;
 }

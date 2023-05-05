@@ -1,8 +1,10 @@
 package ru.practicum.explore_with_me.comment.dto;
 
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.explore_with_me.comment.model.Comment;
 
+@UtilityClass
 public class CommentDtoMapper {
     public static Comment inputToModelMapper(InputCommentDto inputCommentDto) {
         return Comment.builder()
@@ -19,6 +21,8 @@ public class CommentDtoMapper {
                 .author(comment.getAuthor())
                 .createdOn(comment.getCreatedOn())
                 .publishedOn(comment.getPublishedOn())
+                .lastEditDate(comment.getLastEditDate())
                 .build();
     }
 }
+//.lastEditDate(comment.getLastEditDate())
