@@ -41,6 +41,7 @@ public class Comment {
     CommentStatus status;
     @Column(name = "lastEditDate")
     LocalDateTime lastEditDate;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

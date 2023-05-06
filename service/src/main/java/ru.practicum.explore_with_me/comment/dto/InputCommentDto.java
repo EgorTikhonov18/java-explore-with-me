@@ -4,14 +4,12 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@Size(max = 100)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InputCommentDto {
     @NotBlank(message = "Текст комментария должен быть указан")
