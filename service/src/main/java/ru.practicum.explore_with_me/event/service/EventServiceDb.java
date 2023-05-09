@@ -125,13 +125,15 @@ public class EventServiceDb implements EventService {
         return eventListToOutputEventDtoList(eventRepository.findEventsByInitiator(user, PageRequest.of(from / size, size)));
     }
 
-    @Override//admin
+    @Override//admin-------fix?
     public List<OutputEventDto> getEvents(List<Long> userIds, EventState states, List<Long> categoryIds, String rangeStartString,
                                           String rangeEndString, Integer from, Integer size) {
         LocalDateTime rangeStart = rangeStartString != null ? LocalDateTime.parse(rangeStartString, dateTimeFormatter) : null;
         LocalDateTime rangeEnd = rangeEndString != null ? LocalDateTime.parse(rangeEndString, dateTimeFormatter) : null;
         return eventListToOutputEventDtoList(eventRepository.findEventsByParams(null, userIds, states, categoryIds,
                 null, rangeStart, rangeEnd, null, null, from, size, EventParamsType.ADMIN));
+
+
     }
 
     @Override//public
@@ -157,6 +159,11 @@ public class EventServiceDb implements EventService {
     @Override//public
     public OutputEventDto getEvent(Long eventId, HttpServletRequest request) {
         Event event = getEventModel(eventId);
+       /* if(getEventModel(eventId) == null){
+            String message = String.format("%s %d %s", "Нельзя получить событие с id = ", eventId);
+            log.info(message);
+            throw new NotFoundException(message);
+        } */
         sendEventStats(List.of(event), request, EventStats.EVENT);
         return modelToOutputDto(event);
     }

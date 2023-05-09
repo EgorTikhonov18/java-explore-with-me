@@ -1,59 +1,33 @@
 package ru.practicum.explore_with_me;
 
-import org.springframework.http.*;
-import org.springframework.lang.Nullable;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
-import java.util.List;
-import java.util.Map;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
+@Configuration
 public class BaseClient {
-    protected final RestTemplate rest;
+    private static final int TIMEOUT = 5000;
 
-    public BaseClient(RestTemplate rest) {
-        this.rest = rest;
-    }
-
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, null, body);
-    }
-
-    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
-    }
-
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path,
-                                                          @Nullable Map<String, Object> parameters, @Nullable T body) {
-        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
-        ResponseEntity<Object> statsServerResponse;
-        try {
-            if (parameters != null) {
-                statsServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
-            } else {
-                statsServerResponse = rest.exchange(path, method, requestEntity, Object.class);
-            }
-        } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
-        }
-        return prepareGatewayResponse(statsServerResponse);
-    }
-
-    private HttpHeaders defaultHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        return headers;
-    }
-
-    private static ResponseEntity<Object> prepareGatewayResponse(ResponseEntity<Object> response) {
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response;
-        }
-        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
-        if (response.hasBody()) {
-            return responseBuilder.body(response.getBody());
-        }
-        return responseBuilder.build();
+    @Bean
+    public WebClient webClientWithTimeout(@Value("${stats-server.url}") String serverUrl) {
+        final HttpClient httpClient = HttpClient.create()
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, TIMEOUT)
+                .responseTimeout(Duration.ofMillis(TIMEOUT))
+                .doOnConnected(conn ->
+                        conn.addHandlerLast(new ReadTimeoutHandler(TIMEOUT, TimeUnit.MILLISECONDS))
+                                .addHandlerLast(new WriteTimeoutHandler(TIMEOUT, TimeUnit.MILLISECONDS)));
+        return WebClient.builder()
+                .baseUrl(serverUrl)
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .build();
     }
 }
