@@ -16,8 +16,6 @@ services:
     image: postgres:14-alpine
     container_name: stats-db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=cuphead385
       - POSTGRES_DB=stats
 
   ewm-service:
@@ -37,7 +35,5 @@ services:
     image: postgres:14-alpine
     container_name: ewm-db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=cuphead385
       - POSTGRES_DB=exploreit
 
