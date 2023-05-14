@@ -23,7 +23,7 @@ public class PublicCommentController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<CommentDto> getComments(
-            @RequestParam(value = "eventId", required = false) int eventId,
+            @RequestParam(value = "eventId") int eventId,
             @RequestParam(value = "from", defaultValue = "0") @PositiveOrZero Integer from,
             @RequestParam(value = "size", defaultValue = "10") @Positive Integer size) {
 
