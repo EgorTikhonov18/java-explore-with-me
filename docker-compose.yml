@@ -23,8 +23,8 @@ services:
 
   ewm-service:
       build: service
-      image: ewm-service
-      container_name: ewm-service
+      image: service
+      container_name: service
       ports:
         - "8080:8080"
       depends_on:
@@ -38,7 +38,7 @@ services:
     image: postgres:14-alpine
     container_name: ewm-db
     environment:
-      - POSTGRES_USER=shareit
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=cuphead385
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=cuphead385
+      - POSTGRES_DB=exploreit
 
